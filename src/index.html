@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./output.css" rel="stylesheet" />
+
+    <!-- font-awesome  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- navlogo section  -->
+    <nav>
+      <div class="flex justify-center items-center my-5">
+        <img src="../images/logo.png" alt="nav logo" class="w-30" />
+      </div>
+    </nav>
+
+    <!-- hero section  -->
+    <section class="w-full">
+      <div class="relative  ">
+        <img src="../images/page-title.jpg" alt="banar" class="w-full h-[240px] " />
+        <div class="absolute top-10 sm:top-15 text-center w-full leading-6 px-2">
+          <p
+            class="text-white capitalize text-4xl font-bold  mb-2 md:px-0 lg:px-0 xl:px-130  leading-9   "
+          >
+            Search your favourite Recipe
+          </p>
+          <p class="text-white text-[16px] font-medium px-2 py-2 md:px-50 lg:px-80 xl:px-130  ">
+            A handful of simple ingredients typify the fresh, vibrant flavore of
+            Greeh cooking
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- search section strat  -->
+    <div class="flex items-center w-[80%] justify-center mt-5 mx-auto cursor-pointer">
+      <input
+        id="search-input"
+        type="text "
+        placeholder="Search here..."
+        class="border-l border-t border-b px-4 py-2 my-5 w-[70%] rounded-l cursor-pointer"
+      />
+      <button
+        onclick="handleSearch()"
+        class="bg-amber-400 text-white px-4 py-2 h-[41px] rounded-r hover:bg-blue-500 cursor-pointer"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+
+    <!-- heading section  -->
+    <div class="font-bold text-center">
+      <h1 class="capitalize text-3xl my-5">latest racipes</h1>
+    </div>
+
+    <!-- main section  -->
+    <section id="foods-section"></section>
+
+    <!-- show details sectio   -->
+    <div
+      id="foods-modal"
+      class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50"
+    >
+      <div
+        class="bg-white p-6 rounded-lg max-w-lg w-full max-h-[80vh] overflow-y-auto relative"
+      >
+        <button
+          onclick="closeModal()"
+          class="absolute top-0 right-1 text-xl text-gray-500 hover:text-red-600"
+        >
+          ✕
+        </button>
+        <div id="details-container"></div>
+      </div>
+    </div>
+
+
+    <!-- footer section  -->
+     <footer class= "flex bg-black w-full h-10 items-center justify-center">
+      <p class="text-white text-center text-[16px]"><span class="font-bold">NASIM </span>&copy web page 2025!!</p>
+     </footer>
+    <script src="./app.js"></script>
+  </body>
+</html>
