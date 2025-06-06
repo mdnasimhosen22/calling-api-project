@@ -50,7 +50,7 @@ const handleSearch = async () => {
     foodSection.className = "flex justify-center items-center min-h-[60vh] ";
     foodSection.innerHTML = `
     <div class="text-center bg-white shadow-2xl shadow-blue-700 my-5 w-80 p-4">
-      <img src="../images/Icon.png" alt="No data" class="w-48 mx-auto mb-4" />
+      <img src="./images/Icon.png" alt="No data" class="w-48 mx-auto mb-4" />
       <h2 class="text-xl font-semibold text-red-500">No meals found for "<span class="font-bold">${input}</span>"</h2>
     </div>
   `;
