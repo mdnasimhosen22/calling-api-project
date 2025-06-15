@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thatix | Search Your Favourite Recipes Online</title>
     <link href="./output.css" rel="stylesheet" />
 
     <!-- font-awesome  -->
@@ -15,6 +16,19 @@
     />
   </head>
   <body>
+    <!-- preloder add  -->
+    <div
+      id="preloader"
+      class="fixed inset-0 bg-[#242222] flex justify-center items-center z-50"
+    >
+      <img
+        src="./images/index.svg"
+        alt="Loading..."
+        class="w-16 h-16 animate-spin"
+      />
+    </div>
+        <!-- preloder end  -->
+
     <!-- navlogo section  -->
     <nav>
       <div class="flex justify-center items-center my-5">
@@ -24,15 +38,23 @@
 
     <!-- hero section  -->
     <section class="w-full">
-      <div class="relative  ">
-        <img src="./images/page-title.jpg" alt="banar" class="w-full h-[240px] " />
-        <div class="absolute top-10 sm:top-15 text-center w-full leading-6 px-2">
+      <div class="relative">
+        <img
+          src="./images/page-title.jpg"
+          alt="banar"
+          class="w-full h-[240px]"
+        />
+        <div
+          class="absolute top-10 sm:top-15 text-center w-full leading-6 px-2"
+        >
           <p
-            class="text-white capitalize text-4xl font-bold  mb-2 md:px-0 lg:px-0 xl:px-130  leading-9   "
+            class="text-white capitalize text-4xl font-bold mb-2 md:px-0 lg:px-0 xl:px-130 leading-9"
           >
             Search your favourite Recipe
           </p>
-          <p class="text-white text-[16px] font-medium px-2 py-2 md:px-50 lg:px-80 xl:px-130  ">
+          <p
+            class="text-white text-[16px] font-medium px-2 py-2 md:px-50 lg:px-80 xl:px-130"
+          >
             A handful of simple ingredients typify the fresh, vibrant flavore of
             Greeh cooking
           </p>
@@ -41,7 +63,9 @@
     </section>
 
     <!-- search section strat  -->
-    <div class="flex items-center w-[80%] justify-center mt-5 mx-auto cursor-pointer">
+    <div
+      class="flex items-center w-[80%] justify-center mt-5 mx-auto cursor-pointer"
+    >
       <input
         id="search-input"
         type="text "
@@ -62,7 +86,7 @@
     </div>
 
     <!-- main section  -->
-    <section id="foods-section"></section>
+    <section id="foods-section" class="hidden"></section>
 
     <!-- show details sectio   -->
     <div
@@ -70,11 +94,11 @@
       class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50"
     >
       <div
-        class="bg-white p-6 rounded-lg max-w-lg w-full max-h-[80vh] overflow-y-auto relative"
+        class="bg-white p-6 rounded-lg max-w-xl w-full max-h-[80vh] overflow-y-auto relative pt-10"
       >
         <button
           onclick="closeModal()"
-          class="absolute top-0 right-1 text-xl text-gray-500 hover:text-red-600"
+          class="absolute top-10 text-xl text-gray-500 hover:text-white fixed right-105 bg-white w-10 my-2 hover:bg-red-600"
         >
           ✕
         </button>
@@ -82,11 +106,12 @@
       </div>
     </div>
 
-
     <!-- footer section  -->
-     <footer class= "flex bg-black w-full h-10 items-center justify-center">
-      <p class="text-white text-center text-[16px]"><span class="font-bold">NASIM </span>&copy web page 2025!!</p>
-     </footer>
+    <footer class="flex bg-black w-full h-10 items-center justify-center">
+      <p class="text-white text-center text-[16px]">
+        <span class="font-bold">NASIM </span>&copy web page 2025!!
+      </p>
+    </footer>
     <script src="./app.js"></script>
   </body>
 </html>

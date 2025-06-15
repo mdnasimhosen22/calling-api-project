@@ -77,8 +77,8 @@ const showModal = async (foods) => {
 
   content.innerHTML = `
     <div class="p-4 border rounded bg-white shadow">
-      <h2 class="text-xl font-bold mb-2">${foods.strMeal}</h2>
       <img src="${foods.strMealThumb}" alt="${foods.strMeal}" class="w-full mb-2 rounded"/>
+       <h2 class="text-xl font-bold mb-2">${foods.strMeal}</h2>
       <p class="text-gray-700">${foods.strInstructions}</p>
     </div>
   `;
@@ -88,6 +88,14 @@ const showModal = async (foods) => {
 const closeModal = () => {
   document.getElementById("foods-modal").classList.add("hidden");
 };
+
+// preloder added
+window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("preloader").style.display = "none";
+    }, 1000); 
+  document.getElementById("foods-section").classList.remove("hidden");
+});
 
 handleSearch();
 loadFoods();
