@@ -1,11 +1,22 @@
 const foodSection = document.getElementById("foods-section");
-
 const loadFoods = async () => {
-  const res = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/search.php?s="
-  );
-  const data = await res.json();
-  showFoods(data.meals);
+  // প্রিলোডার দেখানো হলো 
+  showLoader();
+
+  try {
+    const res = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/search.php?s="
+    );
+    const data = await res.json();
+    foodSection.className =
+      "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6";
+    showFoods(data.meals);
+  } catch (err) {
+    console.error("Initial load failed:", err);
+  } finally {
+    // লোড শেষ হলে প্রিলোডার লুকাও
+    hideLoader();
+  }
 };
 
 const showFoods = (foods) => {
@@ -40,41 +51,76 @@ const showFoods = (foods) => {
   });
 };
 
-const handleSearch = async () => {
-  const input = document.getElementById("search-input").value;
-  const res = await fetch(
-    `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`
-  );
-  const data = await res.json();
-  if (!data.meals) {
-    foodSection.className = "flex justify-center items-center min-h-[60vh] ";
-    foodSection.innerHTML = `
-    <div class="text-center bg-white shadow-2xl shadow-blue-700 my-5 w-80 p-4">
-      <img src="./images/Icon.png" alt="No data" class="w-48 mx-auto mb-4" />
-      <h2 class="text-xl font-semibold text-red-500">No meals found for "<span class="font-bold">${input}</span>"</h2>
-    </div>
-  `;
-    document.getElementById("search-input").value = "";
-    return;
-  } else {
-    foodSection.className =
-      "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6";
-    showFoods(data.meals);
-  }
-  showFoods(data.meals);
-  document.getElementById("search-input").value = "";
+// ✅ Modal দেখানো / popap diye card er details dekhano
 
-  // ক্যাটেগরি Active স্টেট রিসেট
-  const buttons = document.querySelectorAll("#search-input button");
-  buttons.forEach((btn) => btn.classList.remove("bg-blue-500", "text-white"));
+const showLoader = () => {
+  document.getElementById("preloader").classList.remove("hidden");
 };
 
-// ✅ Modal দেখানো / popap diye card er details dekhano
+const hideLoader = () => {
+  document.getElementById("preloader").classList.add("hidden");
+};
+
+// search hander
+document.getElementById("search-input").addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    handleSearch();
+  }
+});
+const handleSearch = async () => {
+  const input = document.getElementById("search-input").value;
+  const foodSection = document.getElementById("foods-section");
+
+  foodSection.classList.add("hidden");
+  // 🔥 Loader দেখাও
+  showLoader();
+
+  try {
+    const res = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`
+    );
+    const data = await res.json();
+
+    if (!data.meals) {
+      foodSection.className = "flex justify-center items-center min-h-[60vh]";
+      foodSection.innerHTML = `
+        <div class="text-center bg-white shadow-2xl shadow-blue-700 my-5 w-80 p-4">
+          <img src="./images/Icon.png" alt="No data" class="w-48 mx-auto mb-4" />
+          <h2 class="text-xl font-semibold text-red-500">
+            No meals found for "<span class="font-bold">${input}</span>"
+          </h2>
+        </div>
+      `;
+    } else {
+      foodSection.className =
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6";
+      showFoods(data.meals);
+    }
+
+    document.getElementById("search-input").value = "";
+
+    // ✅ ক্যাটেগরি বাটন রিসেট (যদি লাগে)
+    const buttons = document.querySelectorAll("#search-input button");
+    buttons.forEach((btn) => btn.classList.remove("bg-blue-500", "text-white"));
+  } catch (err) {
+    console.error("Search Failed:", err);
+  } finally {
+    // ✅ Loader লুকাও সবশেষে
+    hideLoader();
+  }
+};
+
 const showModal = async (foods) => {
   const modal = document.getElementById("foods-modal");
   const content = document.getElementById("details-container");
+  const modalContent = document.getElementById("modal-content");
   modal.classList.remove("hidden");
 
+  // আনিমেশন trigger
+  setTimeout(() => {
+    modalContent.classList.remove("opacity-0", "scale-95");
+    modalContent.classList.add("opacity-100", "scale-100");
+  }, 50);
   content.innerHTML = `
     <div class="p-4 border rounded bg-white shadow">
       <img src="${foods.strMealThumb}" alt="${foods.strMeal}" class="w-full mb-2 rounded"/>
@@ -84,20 +130,43 @@ const showModal = async (foods) => {
   `;
 };
 
-// ✅ Modal বন্ধ
+// ✅ close Modal
 const closeModal = () => {
-  document.getElementById("foods-modal").classList.add("hidden");
+  const modal = document.getElementById("foods-modal");
+  const modalContent = document.getElementById("modal-content");
+
+  // animation reverse করাও
+  modalContent.classList.remove("opacity-100", "scale-100");
+  modalContent.classList.add("opacity-0", "scale-95");
+
+  // transition শেষে modal hide করাও
+  setTimeout(() => {
+    modal.classList.add("hidden");
+  }, 300); // duration same as animation time
 };
 
-// preloder added
-window.addEventListener("load", () => {
-    setTimeout(() => {
-      document.getElementById("preloader").style.display = "none";
-    }, 1000); 
-  document.getElementById("foods-section").classList.remove("hidden");
-});
+let calcScrollValue = () => {
+  let scrollProgress = document.getElementById("progress");
+  // let progressValue = document.getElementById("progress-value");
+  let pos = document.documentElement.scrollTop;
+  let calcHight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  let scrollValue = Math.round((pos * 100) / calcHight);
+  if (pos > 100) {
+    scrollProgress.style.display = "grid";
+  } else {
+    scrollProgress.style.display = "none";
+  }
+  scrollProgress.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+  scrollProgress.style.background = `conic-gradient(#03cc65 ${scrollValue}%, #d7d7d7 ${scrollValue}%)`;
+};
+window.onscroll = calcScrollValue;
+window.onload = calcScrollValue;
 
-handleSearch();
 loadFoods();
-// showFoodDetails();
-// showModal();

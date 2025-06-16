@@ -6,5 +6,19 @@
   },
   "scripts": {
     "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
-  }
+  },
+  "name": "vanela_js_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdnasimhosen22/calling-api-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdnasimhosen22/calling-api-project/issues"
+  },
+  "homepage": "https://github.com/mdnasimhosen22/calling-api-project#readme",
+  "description": ""
 }

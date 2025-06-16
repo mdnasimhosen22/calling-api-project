@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thatix | Search Your Favourite Recipes Online</title>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link href="./output.css" rel="stylesheet" />
 
     <!-- font-awesome  -->
@@ -16,18 +17,12 @@
     />
   </head>
   <body>
-    <!-- preloder add  -->
     <div
-      id="preloader"
-      class="fixed inset-0 bg-[#242222] flex justify-center items-center z-50"
+      id="progress"
+      class="hidden fixed bottom-5 right-5 h-14 w-14 rounded-full cursor-pointer grid place-items-center z-50 transition-all duration-1000"
     >
-      <img
-        src="./images/index.svg"
-        alt="Loading..."
-        class="w-16 h-16 animate-spin"
-      />
+      <span id="progress-value" class="text-xl text-white font-bold"> ↑ </span>
     </div>
-        <!-- preloder end  -->
 
     <!-- navlogo section  -->
     <nav>
@@ -44,6 +39,9 @@
           alt="banar"
           class="w-full h-[240px]"
         />
+
+        <!-- overlay text  -->
+
         <div
           class="absolute top-10 sm:top-15 text-center w-full leading-6 px-2"
         >
@@ -85,24 +83,42 @@
       <h1 class="capitalize text-3xl my-5">latest racipes</h1>
     </div>
 
+     <!-- preloder add  -->
+     <!-- fixed flex justify-center items-center z-50 -->
+    <div
+      id="preloader"
+      class="relative w-full h-[300px] bg-gray-500 hidden "
+    >
+      <img
+        src="./images/index.svg"
+        alt="Loading..."
+         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 animate-spin"
+      />
+    </div>
+    <!-- preloder end  -->
+
     <!-- main section  -->
     <section id="foods-section" class="hidden"></section>
 
-    <!-- show details sectio   -->
+    <!-- show modal details section   -->
     <div
       id="foods-modal"
-      class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50"
+      class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50 w-full"
     >
       <div
-        class="bg-white p-6 rounded-lg max-w-xl w-full max-h-[80vh] overflow-y-auto relative pt-10"
+      id="modal-content"
+        class="relative bg-white p-6 rounded-lg max-w-xl w-[100%] max-h-[80vh] overflow-y-auto pt-10 opacity-100  opacity-0 scale-95
+         transition-all duration-500 delay-100 ease-out"
       >
-        <button
-          onclick="closeModal()"
-          class="absolute top-10 text-xl text-gray-500 hover:text-white fixed right-105 bg-white w-10 my-2 hover:bg-red-600"
-        >
-          ✕
-        </button>
         <div id="details-container"></div>
+        <div class="flex justify-end">
+          <button
+            onclick="closeModal()"
+            class="absolute top-2 text-xl text-gray-500 hover:text-white right-2 bg-white w-10 h-10 my-2 hover:bg-red-600 rounded-[50%] z-50"
+          >
+            ✕
+          </button>
+        </div>
       </div>
     </div>
 
